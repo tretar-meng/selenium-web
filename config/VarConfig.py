@@ -1,8 +1,8 @@
 #encoding=utf-8
 #本文件用于定义整个框架中所需要的一些全局变量
 import os
-parentDirPath="E:\selenium\\files\Redemption-\\testData"
-
+# parentDirPath="E:\selenium\\files\Redemption-\\testData"
+parentDirPath = os.getcwd().replace('config','testData')
 
 #火狐浏览器驱动存放路径
 firefoxDriveFilePath="E:\selenium\driver\\firefox64\geckodriver-v0.24.0-win64\geckodriver.exe"
