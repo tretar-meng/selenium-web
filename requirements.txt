@@ -1,3 +1,2 @@
 openpyxl==2.3.3
 selenium==3.141.0
-pip==19.1.1

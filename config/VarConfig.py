@@ -1,18 +1,19 @@
 #encoding=utf-8
 #本文件用于定义整个框架中所需要的一些全局变量
 import os
-# parentDirPath="E:\selenium\\files\Redemption-\\testData"
-parentDirPath = os.getcwd().replace('config','testData')
+
+# FIXME
+parentDirPath = os.getcwd()
 
 #火狐浏览器驱动存放路径
-firefoxDriveFilePath="E:\selenium\driver\\firefox64\geckodriver-v0.24.0-win64\geckodriver.exe"
+firefoxDriveFilePath=parentDirPath+"\driver\geckodriver-v0.24.0-win64.exe"
 
 #异常截图存放路径
 # screenPicturesDir="D:\\selenium\\test_py\\Redemption\\testData\\exceptionpictures"
-screenPicturesDir=parentDirPath+"\\exceptionpictures\\"
+screenPicturesDir=parentDirPath+"\\testData\\exceptionpictures\\"
 
 #测试数据存放的绝对路径
-dataFilePath=parentDirPath+"\\the_test_process.xlsx"
+dataFilePath=parentDirPath+"\\testData\\the_test_process.xlsx"
 
 #测试数据文件中，测试用例表中部分列对应的数字序号
 testCase_testCaseName=2
