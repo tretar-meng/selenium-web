@@ -61,6 +61,13 @@ def visit_url(url,*arg):
     except Exception,e:
         raise e
 
+def ctrl_keys(locationType,locatorExpression,keybord_key,*arg):
+    global driver
+    try:
+        getElement(driver,locationType,locatorExpression).send_keys(Keys.CONTROL+keybord_key)
+    except Exception,e:
+        raise e
+
 def refresh_browser(*arg):
     #刷新浏览器
     global driver
