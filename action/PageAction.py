@@ -62,6 +62,7 @@ def visit_url(url,*arg):
         raise e
 
 def ctrl_keys(locationType,locatorExpression,keybord_key,*arg):
+    #按下Ctrl+键盘按键
     global driver
     try:
         getElement(driver,locationType,locatorExpression).send_keys(Keys.CONTROL+keybord_key)
@@ -219,6 +220,33 @@ def switch_to_default_content(*arg):
     try:
         driver.switch_to.default_content()
     except Exception, e:
+        raise e
+
+def switch_window(window_num,*arg):
+    #切换标签页
+    global driver
+    try:
+        handle = driver.window_handles[int(window_num)]
+        driver.switch_to.window(handle)
+    except Exception,e:
+        raise e
+
+def switch_alert_accept():
+    #弹窗中点击确定
+    global driver
+    try:
+        alert_window_a = driver.switch_to.alert
+        alert_window_a.accept()
+    except Exception,e:
+        raise e
+
+def switch_alert_dismiss():
+    #弹窗中点击取消
+    global driver
+    try:
+        alert_window_d = driver.switch_to.alert
+        alert_window_d.dismiss()
+    except Exception,e:
         raise e
 
 def maxmize_browser():
