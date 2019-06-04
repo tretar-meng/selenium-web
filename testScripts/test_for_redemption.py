@@ -64,7 +64,7 @@ def dataDriverFun(dataSourceSheetObj,stepSheetObj):
             # 遍历数据源表，准备进行数据驱动测试
             # 因为第一行是标题行，所以从第二行开始遍历
             if data.value == "y":
-                print u'开始添加店员%s'%(nameColumn[idx+1].value)
+                print u'开始添加%s'%(nameColumn[idx+1].value)
                 requiredDatas +=1
                 # 定义记录执行成功步骤数变量
                 successStep = 0
@@ -194,7 +194,7 @@ def test_for_redemption():
                     caseStepObj = excelObj.getSheetByName(stepSheetName)
                     stepNums = excelObj.getRowsNumber(caseStepObj)
                     successfulSteps = 0
-                    print(u'测试用例共%s步' % (stepNums))
+                    print(u'测试用例共%s步' % (stepNums-1))
                     for index in range(2, stepNums + 1):
                         # 因为第一行标题行无须执行
                         # 获取步骤sheet中第index行对象

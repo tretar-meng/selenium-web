@@ -48,7 +48,23 @@ def open_browser(browserName,*arg):
         # driver=webdriver.Firefox(
         #     executable_path=firefoxDriveFilePath,
         #     firefox_options=firefox_options)
-        driver=webdriver.Firefox(executable_path=firefoxDriveFilePath)
+        # 创建一个FirefoxProfile实例，用于存放自定义配置
+        profile = webdriver.FirefoxProfile()
+        # 设置为0表示下载到桌面，1表示下载到默认路径，2表示下载到自定义路径
+        profile.set_preference('browser.download.folderList', 0)
+        # 在开始下载时是否显示下载管理器
+        profile.set_preference('browser.download.manager.showWhenStarting', False)
+        # 设置为False会把下载框进行隐藏
+        profile.set_preference('browser.download.useWindow', False)
+        # 默认为True，设置为False表示不获取焦点
+        profile.set_preference('browser.download.focusWhenStarting', True)
+        # 对所给文件类型不再弹出提示框进行询问，直接保存到本地磁盘
+        profile.set_preference('browser.helperApps.neverAsk.saveToDisk'\
+        ,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,vnd.ms-excel,application/octet-stream')
+        # 下载完成后不显示下载完成提示框
+        profile.set_preference('browser.download.manager.showAlertOnComplete', True)
+        # 启动浏览器时通过firefox_profile参数将自动配置添加到FirefoxProfile对象中
+        driver=webdriver.Firefox(executable_path=firefoxDriveFilePath,firefox_profile=profile)
         waitUtil=WaitUtil(driver)
     except Exception,e:
         raise e
@@ -276,6 +292,14 @@ def enter(*args):
         ActionChains(driver).send_keys(Keys.ENTER).perform()
     except Exception, e:
         print ('1111111111')
+
+def download_file(locationType,locatorExpression):
+    #下载文件
+    global driver
+    try:
+        getElement(driver,locationType,locatorExpression).click()
+    except Exception, e:
+        raise e
 
 
 # def waitPresenceOfElementLocated(locationType,locatorExpression,*arg):
