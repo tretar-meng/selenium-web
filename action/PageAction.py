@@ -48,23 +48,30 @@ def open_browser(browserName,*arg):
         # driver=webdriver.Firefox(
         #     executable_path=firefoxDriveFilePath,
         #     firefox_options=firefox_options)
-        # 创建一个FirefoxProfile实例，用于存放自定义配置
-        profile = webdriver.FirefoxProfile()
+
+        # 创建一个FirefoxOptions实例，用于存放自定义配置
+        option= Options()
+
+        # 设置浏览器打开新标签页而不是打开新窗口
+        option.set_preference('browser.link.open_newwindow',3)
+        option.set_preference('browser.link.open_newwindow.restriction',0)
+        option.set_preference('browser.link.open_newwindow.override.external',3)
+
         # 设置为0表示下载到桌面，1表示下载到默认路径，2表示下载到自定义路径
-        profile.set_preference('browser.download.folderList', 0)
+        option.set_preference('browser.download.folderList', 0)
         # 在开始下载时是否显示下载管理器
-        profile.set_preference('browser.download.manager.showWhenStarting', False)
+        option.set_preference('browser.download.manager.showWhenStarting', False)
         # 设置为False会把下载框进行隐藏
-        profile.set_preference('browser.download.useWindow', False)
+        option.set_preference('browser.download.useWindow', False)
         # 默认为True，设置为False表示不获取焦点
-        profile.set_preference('browser.download.focusWhenStarting', True)
+        option.set_preference('browser.download.focusWhenStarting', True)
         # 对所给文件类型不再弹出提示框进行询问，直接保存到本地磁盘
-        profile.set_preference('browser.helperApps.neverAsk.saveToDisk'\
+        option.set_preference('browser.helperApps.neverAsk.saveToDisk'\
         ,'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,vnd.ms-excel,application/octet-stream')
         # 下载完成后不显示下载完成提示框
-        profile.set_preference('browser.download.manager.showAlertOnComplete', True)
-        # 启动浏览器时通过firefox_profile参数将自动配置添加到FirefoxProfile对象中
-        driver=webdriver.Firefox(executable_path=firefoxDriveFilePath,firefox_profile=profile)
+        option.set_preference('browser.download.manager.showAlertOnComplete', True)
+        # 启动浏览器时通过firefox_options参数将自动配置添加到FirefoxOptions对象中
+        driver = webdriver.Firefox(executable_path=firefoxDriveFilePath,firefox_options=option)
         waitUtil=WaitUtil(driver)
     except Exception,e:
         raise e
@@ -118,6 +125,21 @@ def close_browser(*arg):
     except Exception,e:
         raise e
 
+def click_link(link_word,*arg):
+    #通过链接文字抓取元素
+    global driver
+    try:
+        driver.find_element_by_link_text(link_word).click()
+    except Exception,e:
+        raise e
+
+def click_link_partial(partial_word,*arg):
+    # 通过链接部分文字抓取元素
+    global driver
+    try:
+        driver.find_element_by_partial_link_text(partial_word).click()
+    except Exception,e:
+        raise e
 
 def simulateASingleKeys_Enter(*arg):
     #使用回车键
