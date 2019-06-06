@@ -50,7 +50,7 @@ def open_browser(browserName,*arg):
         #     firefox_options=firefox_options)
 
         # 创建一个FirefoxOptions实例，用于存放自定义配置
-        option= Options()
+        option = Options()
 
         # 设置浏览器打开新标签页而不是打开新窗口
         option.set_preference('browser.link.open_newwindow',3)

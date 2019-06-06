@@ -5,11 +5,9 @@ from config.VarConfig import *
 import time
 import traceback
 
-
 #创建解析Excel对象
+
 excelObj=ParseExcel()
-#将Excel数据文件加载到内存
-excelObj.loadWorkBook(dataFilePath)
 
 #用例或用例步骤执行结束后，像excel中执行结果信息
 def writeTestResult(sheetObj,rowNo,colsNo,testResult,

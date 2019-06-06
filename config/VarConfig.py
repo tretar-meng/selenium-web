@@ -9,11 +9,26 @@ parentDirPath = os.getcwd()
 firefoxDriveFilePath=parentDirPath+"\driver\geckodriver-v0.24.0-win64.exe"
 
 #异常截图存放路径
-# screenPicturesDir="D:\\selenium\\test_py\\Redemption\\testData\\exceptionpictures"
-screenPicturesDir=parentDirPath+"\\testData\\exceptionpictures\\"
+screenPicturesDir = ''
 
 #测试数据存放的绝对路径
-dataFilePath=parentDirPath+"\\testData\\the_test_process.xlsx"
+work_dir = parentDirPath+"\\testData"
+
+# 读取路径中的所有文件
+all_files = []
+for parent,dirnames,filenames in os.walk(work_dir):
+    for filename in filenames:
+        file = os.path.join(parent,filename)
+        all_files.append(file)
+
+# 提取路径中的所有Excel文件
+global excel_files
+excel_files = []
+for excel in all_files:
+    if excel.endswith('xlsx'):
+        excel_files.append(excel)
+
+# dataFilePath=parentDirPath+"\\testData\\the_test_process.xlsx"
 
 #测试数据文件中，测试用例表中部分列对应的数字序号
 testCase_testCaseName=2
