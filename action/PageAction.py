@@ -1,5 +1,5 @@
 #encoding=utf-8
-#本文件用于实现具体的页面动作
+# 本文件用于实现具体的页面动作
 
 from selenium import webdriver
 from config.VarConfig import firefoxDriveFilePath
@@ -10,13 +10,10 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
 import time
-# import win32api
-# import win32con
 
-
-#定义全局driver变量
+# 定义全局driver变量
 driver=None
-#全局的等待类实例对象
+# 全局的等待类实例对象
 waitUtil=None
 
 # VK_CODE={
@@ -35,7 +32,7 @@ waitUtil=None
 #     win32api.keybd_event(VK_CODE[keyName],0,win32con.KEYEVENTF_KEYUP,0)
 
 def open_browser(browserName,*arg):
-    #打开浏览器
+    # 打开浏览器
     global driver,waitUtil
     try:
         # browserName.lower()=='firefox'
@@ -77,7 +74,7 @@ def open_browser(browserName,*arg):
         raise e
 
 def visit_url(url,*arg):
-    #访问某个网址
+    # 访问某个网址
     global driver
     try:
         driver.get(url)
@@ -85,7 +82,7 @@ def visit_url(url,*arg):
         raise e
 
 def ctrl_keys(locationType,locatorExpression,keybord_key,*arg):
-    #按下Ctrl+键盘按键
+    # 按下Ctrl+键盘按键
     global driver
     try:
         getElement(driver,locationType,locatorExpression).send_keys(Keys.CONTROL+keybord_key)
@@ -93,7 +90,7 @@ def ctrl_keys(locationType,locatorExpression,keybord_key,*arg):
         raise e
 
 def refresh_browser(*arg):
-    #刷新浏览器
+    # 刷新浏览器
     global driver
     try:
         driver.refresh()
@@ -101,7 +98,7 @@ def refresh_browser(*arg):
         raise e
 
 def setSize_browser(width,height,*arg):
-    #定义浏览器大小
+    # 定义浏览器大小
     global driver
     try:
         driver.set_window_size(width,height)
@@ -109,7 +106,7 @@ def setSize_browser(width,height,*arg):
         raise e
 
 def slide_browser(*arg):
-    #下滑浏览器至底部
+    # 下滑浏览器至底部
     global driver
     try:
         js = "var q=document.documentElement.scrollTop=100000"
@@ -118,7 +115,7 @@ def slide_browser(*arg):
         raise e
 
 def close_browser(*arg):
-    #关闭浏览器
+    # 关闭浏览器
     global driver
     try:
         driver.quit()
@@ -126,7 +123,7 @@ def close_browser(*arg):
         raise e
 
 def click_link(link_word,*arg):
-    #通过链接文字抓取元素
+    # 通过链接文字抓取元素
     global driver
     try:
         driver.find_element_by_link_text(link_word).click()
@@ -142,7 +139,7 @@ def click_link_partial(partial_word,*arg):
         raise e
 
 def simulateASingleKeys_Enter(*arg):
-    #使用回车键
+    # 使用回车键
     global driver
     try:
         ActionChains(driver).send_keys(Keys.ENTER).perform()
@@ -182,7 +179,7 @@ def implicitly_wait(sleepSeconds,*arg):
 
 
 def clear(locationType,locatorExpression,*arg):
-    #清除输入框默认内容
+    # 清除输入框默认内容
     global driver
     try:
         getElement(driver,locationType,locatorExpression).clear()
@@ -190,7 +187,7 @@ def clear(locationType,locatorExpression,*arg):
         raise e
 
 def input_string(locationType,locatorExpression,inputContent):
-    #在页面输入框中输入数据
+    # 在页面输入框中输入数据
     global driver
     try:
         getElement(driver,locationType,locatorExpression).send_keys(inputContent)
@@ -198,7 +195,7 @@ def input_string(locationType,locatorExpression,inputContent):
         raise e
 
 def click(locationType,locatorExpression,*arg):
-    #单击页面元素
+    # 单击页面元素
     global driver
     try:
         getElement(driver,locationType,locatorExpression).click()
@@ -206,7 +203,7 @@ def click(locationType,locatorExpression,*arg):
         raise e
 
 def assert_string_in_pagesource(assertString,*arg):
-    #断言页面源码是否存在某关键字或关键字符串
+    # 断言页面源码是否存在某关键字或关键字符串
     global driver
     try:
         assert assertString in driver.page_source,\
@@ -217,7 +214,7 @@ def assert_string_in_pagesource(assertString,*arg):
         raise e
 
 def assert_title(titleStr,*args):
-    #断言页面标题是否存在某关键字或关键字符串
+    # 断言页面标题是否存在某关键字或关键字符串
     global driver
     try:
         assert titleStr in driver.title,\
@@ -228,7 +225,7 @@ def assert_title(titleStr,*args):
         raise e
 
 def getTitle(*arg):
-    #获取页面标题
+    # 获取页面标题
     global driver
     try:
         return driver.title
@@ -236,7 +233,7 @@ def getTitle(*arg):
         raise e
 
 def getPageSource(*arg):
-    #获取页面源码
+    # 获取页面源码
     global driver
     try:
         return driver.page_source
@@ -244,7 +241,7 @@ def getPageSource(*arg):
         raise e
 
 def switch_to_frame(locationType,frameLocatorExpression,*arg):
-    #切换进入frame
+    # 切换进入frame
     global driver
     try:
         driver.switch_to_frame(getElement(driver,locationType,frameLocatorExpression))
@@ -253,7 +250,7 @@ def switch_to_frame(locationType,frameLocatorExpression,*arg):
         raise e
 
 def switch_to_default_content(*arg):
-    #切出frame
+    # 切出frame
     global driver
     try:
         driver.switch_to.default_content()
@@ -261,7 +258,7 @@ def switch_to_default_content(*arg):
         raise e
 
 def switch_window(window_num,*arg):
-    #切换标签页
+    # 切换标签页
     global driver
     try:
         handle = driver.window_handles[int(window_num)]
@@ -270,7 +267,7 @@ def switch_window(window_num,*arg):
         raise e
 
 def switch_alert_accept():
-    #弹窗中点击确定
+    # 弹窗中点击确定
     global driver
     try:
         alert_window_a = driver.switch_to.alert
@@ -279,7 +276,7 @@ def switch_alert_accept():
         raise e
 
 def switch_alert_dismiss():
-    #弹窗中点击取消
+    # 弹窗中点击取消
     global driver
     try:
         alert_window_d = driver.switch_to.alert
@@ -288,7 +285,7 @@ def switch_alert_dismiss():
         raise e
 
 def maxmize_browser():
-    #窗口最大化
+    # 窗口最大化
     global driver
     try:
         driver.maximize_window()
@@ -296,7 +293,7 @@ def maxmize_browser():
         raise e
 
 def capture_screen(*args):
-    #截取屏幕图片
+    # 截取屏幕图片
     global driver
     currTime=getCurrentTime()
     picNameAndPath=str(createCurrentDateDir())+"\\"+str(currTime)+".png"
@@ -308,7 +305,7 @@ def capture_screen(*args):
         return picNameAndPath
 
 def enter(*args):
-    #按enter键
+    # 按enter键
     global driver
     try:
         ActionChains(driver).send_keys(Keys.ENTER).perform()
@@ -316,7 +313,7 @@ def enter(*args):
         print ('1111111111')
 
 def download_file(locationType,locatorExpression):
-    #下载文件
+    # 下载文件
     global driver
     try:
         getElement(driver,locationType,locatorExpression).click()
