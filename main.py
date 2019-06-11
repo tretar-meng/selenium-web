@@ -20,7 +20,8 @@ if __name__=='__main__':
         # 给每个Excel创建一个异常截图目录
         parent_path = dataFilePath.split('\\')
         parent_path[0] = parent_path[0]+'\\'
-        parent_path.insert(3,'exceptionpictures')
+        testData_position = parent_path.index('testData')
+        parent_path.insert(testData_position+1,'exceptionpictures')
         parent_path[-1] = parent_path[-1].split('.')[0]
         screenShotDir = os.path.join(*parent_path)
         # 面对已存在目录的异常处理
