@@ -28,8 +28,6 @@ for excel in all_files:
     if excel.endswith('xlsx'):
         excel_files.append(excel)
 
-# dataFilePath=parentDirPath+"\\testData\\the_test_process.xlsx"
-
 #测试数据文件中，测试用例表中部分列对应的数字序号
 testCase_testCaseName=2
 testCase_frameWorkName=4
