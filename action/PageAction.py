@@ -186,7 +186,7 @@ def clear(locationType,locatorExpression,*arg):
     except Exception, e:
         raise e
 
-def input_string(locationType,locatorExpression,inputContent):
+def input_string(locationType,locatorExpression,inputContent='jyy1996...'):
     # 在页面输入框中输入数据
     global driver
     try:
@@ -312,7 +312,16 @@ def enter(*args):
     except Exception, e:
         print ('1111111111')
 
-def download_file(locationType,locatorExpression):
+def mouse_rover(locationType,locatorExpression,*arg):
+    # 鼠标悬停在某个元素上
+    global driver
+    try:
+        rover_element = getElement(driver,locationType,locatorExpression)
+        ActionChains(driver).move_to_element(rover_element).perform()
+    except Exception,e:
+        raise e
+
+def download_file(locationType,locatorExpression,*arg):
     # 下载文件
     global driver
     try:
