@@ -2,4 +2,5 @@
 /venv/
 *.pyc
 *.log
+*.xlsx
 /testData/exceptionpictures/
