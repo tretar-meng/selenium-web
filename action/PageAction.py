@@ -186,6 +186,26 @@ def clear(locationType,locatorExpression,*arg):
     except Exception, e:
         raise e
 
+def clearInput(locationType,locatorExpression,*arg):
+    global driver
+    try:
+        input = driver.find_element_by_id(locatorExpression)
+        input.clear()
+    except Exception, e:
+        raise e
+
+def assert_string_in_alertText(assertString,*arg):
+    # 断言弹出框内容是否存在某关键字或关键字符串
+    global driver
+    try:
+        alertText = driver.switch_to_alert().text
+        assert assertString in alertText,\
+            u"%s not found in page source!"% assertString
+    except AssertionError,e:
+        raise AssertionError(e)
+    except Exception,e:
+        raise e
+
 def input_string(locationType,locatorExpression,inputContent):
     # 在页面输入框中输入数据
     global driver
