@@ -62,7 +62,7 @@ def dataDriverFun(dataSourceSheetObj,stepSheetObj):
             # 遍历数据源表，准备进行数据驱动测试
             # 因为第一行是标题行，所以从第二行开始遍历
             if data.value == "y":
-                print u'开始添加%s'%(nameColumn[idx+1].value)
+                print u'开始%s'%(nameColumn[idx+1].value)
                 requiredDatas +=1
                 # 定义记录执行成功步骤数变量
                 successStep = 0
@@ -79,18 +79,18 @@ def dataDriverFun(dataSourceSheetObj,stepSheetObj):
                     operateValue = rowObj[testStep_operateValue -1].value
                     if isinstance(operateValue,long):
                         operateValue = str(operateValue)
-                    if operateValue and operateValue.isalpha():
-                        # 如果operateValue变量不为空，说明有操作值从数据源表中
-                        # 根据坐标获取对应单元格的数据
-                        coordinate = operateValue+str(idx+2)
-                        operateValue = excelObj.getCellOfValue(dataSourceSheetObj,\
-                                                               coordinate=coordinate)
                     if isinstance(operateValue, int):
                         operateValue = str(operateValue)
                         # 构造需要执行的python表达式，此表达式对应的是PageAction.py文件
                         # 中的页面动作函数调用的字符串表示
                     tmpStr = "'%s','%s'"%(locationType.lower(),locatorExpression.replace(\
                             "'",'"'))if locationType and locatorExpression else""
+                    if operateValue and operateValue.isalpha() and len(operateValue)==1:
+                        # 如果operateValue变量是字母且为1，说明有操作值从数据源表中
+                        # 根据坐标获取对应单元格的数据
+                        coordinate = operateValue+str(idx+2)
+                        operateValue = excelObj.getCellOfValue(dataSourceSheetObj,\
+                                                               coordinate=coordinate)
                     if tmpStr:
                         operateValue=str(operateValue)
                         tmpStr+=\
@@ -99,11 +99,11 @@ def dataDriverFun(dataSourceSheetObj,stepSheetObj):
                         operateValue = str(operateValue)
                         tmpStr +=\
                         "u'"+operateValue+"'" if operateValue else ""
-                    keyWord=str(keyWord)
+                    # keyWord=str(keyWord)
                     runStr = keyWord+"("+tmpStr+")"
                     print(runStr)
                     try:
-                        if operateValue!=u"否":
+                        if operateValue!=u"否" and operateValue!=u"不输入":
                             eval(runStr)
                     except Exception as e:
                         print(u'执行步骤%s发生异常'%rowObj[testStep_testStepDescribe-1].value)
@@ -177,7 +177,7 @@ def test_for_redemption():
                     stepSheetObj = excelObj.getSheetByName(stepSheetName)
                     # 获取第idx+1行测试用例使用的数据sheet对象
                     dataSheetObj = excelObj.getSheetByName(dataSheetName)
-                    # 通过数据驱动框架执行添加联系人
+                    # 通过数据驱动框架执行添加数据
                     result = dataDriverFun(dataSheetObj, stepSheetObj)
                     if result:
                         print(u'用例%s执行成功' % (caseName))
@@ -220,6 +220,7 @@ def test_for_redemption():
                         else:
                             tmpStr += \
                                 "u'" + operateValue + "'" if operateValue else ""
+
                         runStr = keyWord + "(" + tmpStr + ")"
                         print(runStr)
                         try:
