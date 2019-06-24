@@ -186,14 +186,6 @@ def clear(locationType,locatorExpression,*arg):
     except Exception, e:
         raise e
 
-def clearInput(locationType,locatorExpression,*arg):
-    global driver
-    try:
-        input = driver.find_element_by_id(locatorExpression)
-        input.clear()
-    except Exception, e:
-        raise e
-
 def assert_string_in_alertText(assertString,*arg):
     # 断言弹出框内容是否存在某关键字或关键字符串
     global driver
@@ -332,7 +324,16 @@ def enter(*args):
     except Exception, e:
         print ('1111111111')
 
-def download_file(locationType,locatorExpression):
+def mouse_rover(locationType,locatorExpression,*arg):
+    # 鼠标悬停在某个元素上
+    global driver
+    try:
+        rover_element = getElement(driver,locationType,locatorExpression)
+        ActionChains(driver).move_to_element(rover_element).perform()
+    except Exception,e:
+        raise e
+
+def download_file(locationType,locatorExpression,*arg):
     # 下载文件
     global driver
     try:

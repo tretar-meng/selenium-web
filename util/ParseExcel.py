@@ -153,7 +153,7 @@ class ParseExcel(object):
 
 if __name__ == "__main__":
     pe = ParseExcel()
-    pe.loadWorkBook(u'D:\\selenium\\test_py\\Redemption\\testData\\the_test_process.xlsx')
+    pe.loadWorkBook(u'D:\\selenium\\test_py\\Redemption\\testData\\view.xlsx')
     print("通过名称获取sheet对象名字："),pe.getSheetByName("the_test_process").title
     print("通过Index序号获取sheet对象的名字"),pe.getSheetByIndex(0).title
     sheet = pe.getSheetByIndex(0)
