@@ -198,7 +198,7 @@ def assert_string_in_alertText(assertString,*arg):
     except Exception,e:
         raise e
 
-def input_string(locationType,locatorExpression,inputContent):
+def input_string(locationType,locatorExpression,inputContent,*arg):
     # 在页面输入框中输入数据
     global driver
     try:
@@ -322,7 +322,7 @@ def enter(*args):
     try:
         ActionChains(driver).send_keys(Keys.ENTER).perform()
     except Exception, e:
-        print ('1111111111')
+        raise e
 
 def mouse_rover(locationType,locatorExpression,*arg):
     # 鼠标悬停在某个元素上
@@ -340,7 +340,6 @@ def download_file(locationType,locatorExpression,*arg):
         getElement(driver,locationType,locatorExpression).click()
     except Exception, e:
         raise e
-
 
 # def waitPresenceOfElementLocated(locationType,locatorExpression,*arg):
 #         '''
