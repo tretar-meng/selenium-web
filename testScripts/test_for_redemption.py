@@ -95,12 +95,14 @@ def dataDriverFun(dataSourceSheetObj,stepSheetObj):
                         operateValue=str(operateValue)
                         tmpStr+=\
                         ",u'"+operateValue+"'" if operateValue else ""
-                    else:
-                        operateValue = str(operateValue)
-                        tmpStr +=\
-                        "u'"+operateValue+"'" if operateValue else ""
-                    # keyWord=str(keyWord)
-                    runStr = keyWord+"("+tmpStr+")"
+                    else :
+                        if operateValue is None :
+                            tmpStr = ""
+                        else :
+                            operateValue = str(operateValue)
+                            tmpStr +=\
+                            "u'"+operateValue+"'" if operateValue else ""
+                    runStr = keyWord + "(" + tmpStr + ")"
                     print(runStr)
                     try:
                         if operateValue!=u"否" and operateValue!=u"不输入":
