@@ -9,6 +9,7 @@ from util.WaitUtil import WaitUtil
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
 import time
 
 # 定义全局driver变量
@@ -137,15 +138,6 @@ def click_link_partial(partial_word,*arg):
         driver.find_element_by_partial_link_text(partial_word).click()
     except Exception,e:
         raise e
-
-def simulateASingleKeys_Enter(*arg):
-    # 使用回车键
-    global driver
-    try:
-        ActionChains(driver).send_keys(Keys.ENTER).perform()
-    except Exception, e:
-        raise e
-
 
 def web_forward(*arg):
     # 前进
@@ -324,12 +316,12 @@ def enter(*args):
     except Exception, e:
         raise e
 
-def mouse_rover(locationType,locatorExpression,*arg):
+def mouse_hover(locationType,locatorExpression,*arg):
     # 鼠标悬停在某个元素上
     global driver
     try:
-        rover_element = getElement(driver,locationType,locatorExpression)
-        ActionChains(driver).move_to_element(rover_element).perform()
+        hover_element = getElement(driver,locationType,locatorExpression)
+        ActionChains(driver).move_to_element(hover_element).perform()
     except Exception,e:
         raise e
 
@@ -339,6 +331,15 @@ def download_file(locationType,locatorExpression,*arg):
     try:
         getElement(driver,locationType,locatorExpression).click()
     except Exception, e:
+        raise e
+
+def select_option(locationType,locatorExpression,element_value,*arg):
+    # 在option中选择对象
+    global driver
+    try:
+        option_list = Select(getElement(driver,locationType,locatorExpression))
+        option_list.select_by_value(element_value)
+    except Exception,e:
         raise e
 
 # def waitPresenceOfElementLocated(locationType,locatorExpression,*arg):

@@ -27,5 +27,6 @@
 下载文件,"download_file(locationType,locatorExpression)",
 通过链接文字抓取元素,click_link(link_word),
 通过链接部分文字抓取元素,click_link_partial(partial_word),
-鼠标悬停,"mouse_rover（locationType,locatorExpression）",
+鼠标悬停,"mouse_hover（locationType,locatorExpression）",
 断言弹出框内容是否存在某关键字或关键字符串,assert_string_in_alertText(assertString),
+选择option列表中的值,"select_option(locationType,locatorExpression,element_value)","<option value=""element_value"">北京市</option>"
