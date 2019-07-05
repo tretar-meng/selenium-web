@@ -1,0 +1,41 @@
+var tableData ={
+  headerData:[
+    {value:'总览' },
+    {value:'总计' },
+    {value:'通过' },
+    {value:'失败' },
+    {value:'执行时间' },
+    {value:'通过/失败' },
+    ],
+  headerMain : [
+
+    {% for module in modules %}
+      { File: '{{ module.name }}', Total: 100, Pass: 70, Fail: 30, Time: '60s', Status: '通过',
+        data: [
+
+          {% for file in module.files %}
+              { File: '{{ file.name }}', Total: 100, Pass: 70, Fail: 30, Time: '60s', Status: '通过',
+                data: [
+
+                  {% for case in file.testcases %}
+                    { useCase: '{{ case.name }}', executeDescription:'用例描述',isExecute: '是', executeTime: '2019-06-21 9:00', result: '成功',
+                      data: [
+                        {% for step in case.steps %}
+                          { step: '{{ step.stepDesc }}', errorMaessage: '错误信息1', executeTime: '2019-06-21 9:00', result: '成功'}, 
+                        {% endfor %}
+                      ]
+                    }, 
+                  {% endfor %}
+                 
+                ]
+              }, 
+          {% endfor %}
+
+        ]
+      },        
+    {% endfor %}
+
+  ]
+ }
+    $("#demo_title").tmpl(tableData).appendTo('.table-header')
+  　$("#demo_main").tmpl(tableData).appendTo('.table-center');

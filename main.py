@@ -4,6 +4,7 @@ import sys
 import errno
 from testScripts.test_for_redemption import *
 from config import VarConfig
+from report import parser
 
 #设置此次测试环境编码为utf8
 reload(sys)
@@ -12,6 +13,13 @@ sys.setdefaultencoding('utf-8')
 if __name__=='__main__':
     global excelObj
     # global screenPicturesDir
+
+    testExcel = parser.getAllTestExcel()
+    for fileMeta in testExcel:
+        parser.parseTestResult(fileMeta)
+    
+    parser.tidyReport()
+    exit
 
     # 每读取到一个Excel文件执行一遍循环
     for dataFilePath in excel_files:

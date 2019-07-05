@@ -13,6 +13,7 @@ screenPicturesDir = ''
 
 #测试数据存放的绝对路径
 work_dir = parentDirPath+"\\testData"
+tmpl_dir = os.path.join(parentDirPath,"report","tmpl","js")
 
 # 读取路径中的所有文件
 all_files = []
