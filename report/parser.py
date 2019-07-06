@@ -44,7 +44,7 @@ def parseTestResult(testExcel):
 
     while testcaseReader.loadNextTestcase():
 
-        ResultCollector.newTestCase(testcaseReader.getTestcaseName())
+        ResultCollector.newTestCase(testcaseReader.getTestcaseMeta())
 
         while testcaseReader.nextStep():
 

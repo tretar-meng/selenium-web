@@ -1,5 +1,8 @@
 # encoding=utf-8
 
+import datetime
+from config import VarConfig
+
 class Collector(object):
 
     def __init__(self):
@@ -25,10 +28,9 @@ class Collector(object):
         self.context["filename"] = filename
 
     def newTestCase(self,testcase):
-        self.data[self.context["module"]][self.context["filename"]][testcase] = {
-            "steps":[],
-        }
-        self.context["testcase"] = testcase
+        self.data[self.context["module"]][self.context["filename"]][testcase["name"]] = testcase
+
+        self.context["testcase"] = testcase["name"]
 
     def setContext(self,module , filename,testcase):
         self.context["module"] = module
@@ -45,6 +47,41 @@ class Collector(object):
 
         self.data[module][filename][testcase]["steps"].append(step)
     
+    def fileScopeMetric(self,exFile):
+
+        metric = {
+            "total": len(exFile["testcases"]),
+            "pass" : 0,
+            "failed": 0,
+        }
+
+        for case in exFile["testcases"]:
+            if case["shouldExc"] == "y":
+                if  case["result"] == "pass":
+                    metric["pass"]+=1
+                else:
+                    metric["failed"]+=1
+        
+        return metric
+
+    def moduleScopeMetric(self,module):
+
+        metric = {
+            "total": len(module["files"]),
+            "pass" : 0,
+            "failed": 0,
+        }
+
+        for exFile in module["files"]:
+            if exFile["failed"] > 0:
+                metric["failed"]+=1
+            else:
+                metric["pass"]+=1
+
+
+        return metric
+
+    
     def dumpData(self):
 
         # encode data to render to the tmpl file
@@ -53,22 +90,35 @@ class Collector(object):
 
             files = []
             for filename,file in module.items():
-                testcases = []
-                for testcaseName,testcase in file.items():
-                    testcases.append({
-                        "name":testcaseName,
-                        "steps":testcase["steps"],
-                    })
 
-                files.append({
+                exFile = {
                     "name":filename,
-                    "testcases":testcases,
-                })
+                    "testcases":file.values(),
+                }
+
+                metric = self.fileScopeMetric(exFile)
+                exFile.update(metric)
+
+                if exFile["failed"] > 0:
+                    exFile["status"] = u"失败"
+                else:
+                    exFile["status"] = u"通过"
+
+                files.append(exFile)
             
-            modules.append({
+            # 
+            mModule = {
                 "name":moduleName,
                 "files":files,
-            })
+            }
+
+            mModule.update(self.moduleScopeMetric(mModule))
+            if mModule["failed"] > 0:
+                mModule["status"] = u"失败"
+            else:
+                mModule["status"] = u"通过"
+
+            modules.append(mModule)
 
         return modules
 

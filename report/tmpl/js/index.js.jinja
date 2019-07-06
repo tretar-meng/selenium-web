@@ -10,18 +10,18 @@ var tableData ={
   headerMain : [
 
     {% for module in modules %}
-      { File: '{{ module.name }}', Total: 100, Pass: 70, Fail: 30, Time: '60s', Status: '通过',
+      { File: '{{ module.name }}', Total: {{ module.total }}, Pass: {{ module.pass}}, Fail: {{ module.failed }}, Time: '60s', Status: '{{ module.status }}',
         data: [
 
           {% for file in module.files %}
-              { File: '{{ file.name }}', Total: 100, Pass: 70, Fail: 30, Time: '60s', Status: '通过',
+              { File: '{{ file.name }}', Total: {{ file.total }}, Pass: {{ file.pass }}, Fail: {{ file.failed }}, Time: '60s', Status: '{{ file.status }}',
                 data: [
 
                   {% for case in file.testcases %}
-                    { useCase: '{{ case.name }}', executeDescription:'用例描述',isExecute: '是', executeTime: '2019-06-21 9:00', result: '成功',
+                    { useCase: '{{ case.name }}', executeDescription:'{{ case.desc }}',isExecute: '{{ case.shouldExc }}', executeTime: '2019-06-21 9:00', result: '{{ case.result }}',
                       data: [
                         {% for step in case.steps %}
-                          { step: '{{ step.stepDesc }}', errorMaessage: '错误信息1', executeTime: '2019-06-21 9:00', result: '成功'}, 
+                          { step: '{{ step.stepDesc }}', errorMaessage: '{{ step.stepErr }}', executeTime: '{{ step.stepRunTime }}', result: '{{ step.stepResult }}'}, 
                         {% endfor %}
                       ]
                     }, 

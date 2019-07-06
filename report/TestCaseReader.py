@@ -16,6 +16,7 @@ class TestCaseReader(object):
         # following is the current testcase state
         self.stepSheet = None
         self.dataSheet = None
+        self.currentTestcaseMeta = None
         # data-driven or keyword-driven
         self.frameworkType = None
         self.currentStepIdx = 1
@@ -50,12 +51,18 @@ class TestCaseReader(object):
         # reset state
         self.currentStepIdx = 1
         self.currentDataIdx = 1
+
+
+        self.currentTestcaseMeta = {
+            "name":self.stepSheet.title,
+            "desc":testcaseRow[VarConfig.testCase_testCaseName - 1].value,
+            "shouldExc":testcaseRow[VarConfig.testCase_isExecute - 1].value,
+            "result":testcaseRow[VarConfig.testCase_testResult - 1].value,
+            "steps":[],
+        }
         
         return True
     
-    def testcaseMeta(self):
-        return {}
-
     def nextStep(self):
 
         self.currentStepIdx += 1
@@ -78,9 +85,9 @@ class TestCaseReader(object):
 
         return True
     
-    def getTestcaseName(self):
+    def getTestcaseMeta(self):
 
-        return self.stepSheet.title
+        return self.currentTestcaseMeta
 
     def getStep(self):
 

@@ -14,12 +14,7 @@ if __name__=='__main__':
     global excelObj
     # global screenPicturesDir
 
-    testExcel = parser.getAllTestExcel()
-    for fileMeta in testExcel:
-        parser.parseTestResult(fileMeta)
     
-    parser.tidyReport()
-    exit
 
     # 每读取到一个Excel文件执行一遍循环
     for dataFilePath in excel_files:
@@ -43,3 +38,10 @@ if __name__=='__main__':
 
         VarConfig.screenPicturesDir = screenShotDir
         test_for_redemption()
+    
+
+    testExcel = parser.getAllTestExcel()
+    for fileMeta in testExcel:
+        parser.parseTestResult(fileMeta)
+    
+    parser.tidyReport()
