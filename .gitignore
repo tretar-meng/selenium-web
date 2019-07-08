@@ -1,6 +1,8 @@
 /.idea/
+.vscode/
 /venv/
 *.pyc
 *.log
 *.xlsx
 /testData/exceptionpictures/
+report/tmpl/js/index.js

@@ -13,6 +13,9 @@ screenPicturesDir = ''
 
 #测试数据存放的绝对路径
 work_dir = parentDirPath+"\\testData"
+tmpl_dir = os.path.join(parentDirPath,"report","tmpl","js")
+
+runtimeFmt = "%Y-%m-%d %H:%M:%S"
 
 # 读取路径中的所有文件
 all_files = []

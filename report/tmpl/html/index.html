@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>测试报告</title>
+  <script type="text/javascript" src="../jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="../tmpl/jquery.tmpl.js"></script>
+  <link rel="stylesheet" href="../layui/css/layui.css">
+  <link rel="stylesheet" href="../css/index.css">
+</head>
+<body class="bodyDemo">
+<!-- 你的HTML代码 -->
+<script src="../layui/layui.js"></script>
+<script>
+  layui.use(['element', 'layer'], function(){
+    var element = layui.element;
+    var layer = layui.layer;
+    //监听折叠
+    element.on('collapse(test)', function(data){
+      layer.msg('展开状态：'+ data.show);
+    });
+  })
+</script>
+<div class="demo">
+  <div class="title">测试报告</div>
+  <div id="table_contain">
+    <div class="table-header"></div>
+    <div class="table-center"></div>
+  </div>
+</div>
+  <script id="demo_title" type="text/x-jquery-tmpl"> 
+  <div class="layui-row row-header">
+    {{each(i,item) headerData}}
+      <div class="layui-col-xs2">
+        <div class="grid-demo grid-demo-bg1">${item.value}</div>
+      </div>
+    {{/each}}
+  </div>
+
+  </script>
+
+  <script id="demo_main" type="text/x-jquery-tmpl">
+  {{each(i,item) headerMain}}
+    <div class="layui-collapse" lay-accordion="">
+      <div class="layui-colla-item">
+          <h2 class="layui-colla-title">
+            <div class="layui-col-xs2 item">
+              <div class="grid-demo grid-demo-bg1">${item.File}</div>
+            </div>
+            <div class="layui-col-xs2">
+              <div class="grid-demo grid-demo-bg1">${item.Total}</div>
+            </div>
+            <div class="layui-col-xs2">
+              <div class="grid-demo grid-demo-bg1">${item.Pass}</div>
+            </div>
+            <div class="layui-col-xs2">
+              <div class="grid-demo grid-demo-bg1">${item.Fail}</div>
+            </div>  
+            <div class="layui-col-xs2">
+              <div class="grid-demo grid-demo-bg1">${item.Time}</div>
+            </div>
+            <div class="layui-col-xs2">
+              <div class="grid-demo grid-demo-bg1">${item.Status}</div>
+            </div>     
+          </h2>
+          <div class="layui-colla-content">
+            {{each(j,itemOneSub) item.data}}
+            <div class="layui-collapse" lay-accordion="">
+              <div class="layui-colla-item">
+                  <h2 class="layui-colla-title">
+                      <div class="layui-col-xs2 itemOneSub">
+                        <div class="grid-demo grid-demo-bg1 ">${itemOneSub.File}</div>
+                      </div>
+                      <div class="layui-col-xs2">
+                        <div class="grid-demo grid-demo-bg1">${itemOneSub.Total}</div>
+                      </div>
+                      <div class="layui-col-xs2">
+                        <div class="grid-demo grid-demo-bg1">${itemOneSub.Pass}</div>
+                      </div>
+                      <div class="layui-col-xs2">
+                        <div class="grid-demo grid-demo-bg1">${itemOneSub.Fail}</div>
+                      </div>  
+                      <div class="layui-col-xs2">
+                        <div class="grid-demo grid-demo-bg1">${itemOneSub.Time}</div>
+                      </div>
+                      <div class="layui-col-xs2">
+                        <div class="grid-demo grid-demo-bg1">${itemOneSub.Status}</div>
+                      </div> 
+                  </h2>
+                  <div class="layui-colla-content ">
+                    {{each(k,itemTwoSub) itemOneSub.data}}
+                      <div class="layui-collapse" lay-accordion="">
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">
+                                <div class="layui-col-xs2 itemTwoSub">
+                                    <div class="grid-demo grid-demo-bg1">${itemTwoSub.useCase}</div>
+                                  </div>
+                                  <div class="layui-col-xs4">
+                                    <div class="grid-demo grid-demo-bg1">用例描述:${itemTwoSub.executeDescription}</div>
+                                  </div>
+                                  <div class="layui-col-xs2">
+                                    <div class="grid-demo grid-demo-bg1">是否执行:${itemTwoSub.isExecute}</div>
+                                  </div>
+                                  <div class="layui-col-xs4">
+                                    <div class="grid-demo grid-demo-bg1">结果：${itemTwoSub.result}</div>
+                                  </div>                         
+                            </h2>
+                            <div class="layui-colla-content step" >
+                              {{each(r,itemThirdSub) itemTwoSub.data}}
+                                <div class="layui-row">
+                                  <div class="layui-col-xs2">
+                                    <div class="grid-demo grid-demo-bg1">${itemThirdSub.step}</div>
+                                  </div>
+                                  <div class="layui-col-xs4">
+                                    <div class="grid-demo grid-demo-bg1">执行时间:${itemThirdSub.executeTime}</div>
+                                  </div>
+                                  <div class="layui-col-xs2">
+                                    <div class="grid-demo grid-demo-bg1">结果:${itemThirdSub.result}</div>
+                                  </div>
+                                  <div class="layui-col-xs4">
+                                      <div class="grid-demo grid-demo-bg1">错误信息:${itemThirdSub.errorMaessage}</div>
+                                    </div>
+                                </div>
+                              {{/each}}
+                            </div>
+                          </div>
+                        </div>
+                      {{/each}}
+                  </div>
+                </div>
+              </div>
+            {{/each}}
+          </div>
+      </div>
+    </div>
+  {{/each}}
+  </script>
+</body>
+<script type="text/javascript" src="../js/index.js"></script>
+</html>
